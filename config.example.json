@@ -1,0 +1,19 @@
+{
+  "DEEPSEEK_API_KEY": "your-api-key-here",
+  "DEEPSEEK_API_URL": "https://api.deepseek.com/v1/chat/completions",
+  "DEEPSEEK_MODEL": "deepseek-chat",
+  "API_TEMPERATURE": 0.7,
+  "API_MAX_TOKENS": 150,
+  "DB_HOST": "localhost",
+  "DB_PORT": 3306,
+  "DB_USER": "root",
+  "DB_PASSWORD": "your-password",
+  "DB_NAME": "miside_agent",
+  "LOG_LEVEL": "INFO",
+  "LOG_ENABLED": true,
+  "CONSOLE_OUTPUT": true,
+  "MAX_LOG_SIZE": 5242880,
+  "BACKUP_COUNT": 3,
+  "CACHE_ENABLED": true,
+  "CACHE_PERSISTENCE": false
+}
