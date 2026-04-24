@@ -41,5 +41,17 @@
       "formality": "casual",
       "tone": "gentle"
     }
+  },
+  {
+    "id": 4,
+    "timestamp": "2026-04-23T23:09:19.258713",
+    "context": "",
+    "user_comment": "喜欢上一个对话",
+    "keywords": [],
+    "style_analysis": {
+      "length": "short",
+      "formality": "casual",
+      "tone": "neutral"
+    }
   }
 ]

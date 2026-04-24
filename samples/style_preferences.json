@@ -1,6 +1,6 @@
 {
-  "preferred_length": "long",
+  "preferred_length": "short",
   "formality": "casual",
-  "tone": "gentle",
-  "feedback_count": 3
+  "tone": "neutral",
+  "feedback_count": 4
 }
