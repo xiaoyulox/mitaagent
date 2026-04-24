@@ -1,5 +1,5 @@
-from core.api_client_v2 import get_mita_response
-from database.db_operations_v2 import db_ops_v2
+from core.api_client import get_mita_response
+from database.db_operations import db_ops
 from database.db_commands import DBCommandHandler
 from interaction.active_interaction import active_interactor
 from core.typewriter_effect import typewriter
@@ -16,12 +16,12 @@ import os
 
 def main():
     # 初始化数据库表结构
-    db_ops_v2.initialize_tables()
+    db_ops.initialize_tables()
     
     print("提示：输入'help' 可查看帮助命令")
     
     # 获取最新的米塔回复，如果存在则使用它作为开场白，否则使用默认开场白
-    latest_response = db_ops_v2.get_latest_mita_response()
+    latest_response = db_ops.get_latest_mita_response()
     if latest_response:
         welcome_message = f"还记得我上次跟你说了什么吗？\n {latest_response}"
         welcome_prefix = "米塔："
@@ -164,7 +164,7 @@ def main():
             result = DBCommandHandler.handle_db_command(command, user_input)
             typewriter.type_text(result)
         elif user_input == "重置数据库":
-            if db_ops_v2.reset_database():
+            if db_ops.reset_database():
                 typewriter.type_text("呜…数据库已经重置了呢… 现在我们可以重新开始了哦…")
             else:
                 typewriter.type_text("呜…好像重置数据库失败了呢… 能再试一次吗？")
@@ -172,7 +172,7 @@ def main():
             # 正面反馈 - 记录优质样本
             comment = user_input[5:].strip()  # 去掉 "good_"
             # 获取最近的对话上下文
-            recent_convos = db_ops_v2.get_recent_conversations(3)
+            recent_convos = db_ops.get_recent_conversations(3)
             context = "\n".join([f"用户: {c['user_input']}\n米塔: {c['mita_response']}" for c in recent_convos])
             
             sample_id = feedback_manager.record_good_feedback(context, comment)
@@ -185,7 +185,7 @@ def main():
             # 负面反馈 - 记录问题
             comment = user_input[4:].strip()  # 去掉 "bad_"
             # 获取最近的对话上下文
-            recent_convos = db_ops_v2.get_recent_conversations(3)
+            recent_convos = db_ops.get_recent_conversations(3)
             context = "\n".join([f"用户: {c['user_input']}\n米塔: {c['mita_response']}" for c in recent_convos])
             
             feedback_id = feedback_manager.record_bad_feedback(context, comment)
@@ -305,7 +305,7 @@ def main():
             )
             
             # 关闭数据库连接
-            db_ops_v2.close()
+            db_ops.close()
             
             print("\n再见…我会想念你的…💕")
             break

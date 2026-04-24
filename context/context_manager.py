@@ -1,4 +1,4 @@
-from database.db_operations_v2 import db_ops_v2
+from database.db_operations import db_ops
 from config.personality_config import PERSONALITY_MODES, CURRENT_PERSONALITY
 from utils.logger import log_info
 import re

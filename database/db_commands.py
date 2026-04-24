@@ -5,7 +5,7 @@ import os
 if __name__ == "__main__":
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from database.db_operations_v2 import db_ops_v2
+from database.db_operations import db_ops
 import re
 
 
@@ -17,7 +17,7 @@ class DBCommandHandler:
         """处理数据库命令"""
         # 查看所有对话记录
         if command == "view_all":
-            conversations = db_ops_v2.get_all_conversations()
+            conversations = db_ops.get_all_conversations()
             if conversations:
                 result = f"共有 {len(conversations)} 条对话记录：\n\n"
                 for conv in conversations:
@@ -36,7 +36,7 @@ class DBCommandHandler:
                     num = 5  # 默认查看5条
             else:
                 num = 5  # 默认查看5条
-            conversations = db_ops_v2.get_latest_conversations(num)
+            conversations = db_ops.get_latest_conversations(num)
             if conversations:
                 result = f"最近 {len(conversations)} 条对话记录：\n\n"
                 for conv in conversations:
@@ -50,7 +50,7 @@ class DBCommandHandler:
             try:
                 parts = command.split("_")
                 conv_id = int(parts[1])  # 获取ID
-                if db_ops_v2.delete_conversation(conv_id):
+                if db_ops.delete_conversation(conv_id):
                     return f"ID为 {conv_id} 的对话记录已删除。"
                 else:
                     return f"删除ID为 {conv_id} 的对话记录失败。"
@@ -64,7 +64,7 @@ class DBCommandHandler:
                 conv_id = int(parts[1])  # 获取ID
                 new_content = parts[2] if len(parts) > 2 else ""
                 if new_content:
-                    if db_ops_v2.update_conversation(conv_id, mita_response=new_content):
+                    if db_ops.update_conversation(conv_id, mita_response=new_content):
                         return f"ID为 {conv_id} 的对话记录已更新。新内容: {new_content}"
                     else:
                         return f"更新ID为 {conv_id} 的对话记录失败。"
@@ -75,7 +75,7 @@ class DBCommandHandler:
 
         # 获取对话总数
         elif command == "count":
-            count = db_ops_v2.get_conversation_count()
+            count = db_ops.get_conversation_count()
             return f"当前数据库中共有 {count} 条对话记录。"
 
         # 显示帮助
@@ -95,7 +95,7 @@ class DBCommandHandler:
 
         # 重置数据库
         elif command == "reset_db":
-            if db_ops_v2.reset_database():
+            if db_ops.reset_database():
                 return "数据库已重置，所有对话记录已被清空。"
             else:
                 return "重置数据库失败。"

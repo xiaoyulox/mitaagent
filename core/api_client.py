@@ -1,7 +1,7 @@
 import requests
 from config.config import API_URL, API_KEY, MODEL, TEMPERATURE, MAX_TOKENS
 from utils.prompt import MITA_PROMPT
-from database.db_operations_v2 import db_ops_v2
+from database.db_operations import db_ops
 from context.smart_context_manager import smart_context_manager
 from context.user_profile import user_profile
 from context.feedback_manager import feedback_manager
@@ -75,7 +75,7 @@ def get_mita_response(user_input, max_retries=2, timeout=15):
                     continue
                 else:
                     error_response = "呜…我现在有点忙，暂时无法回复你…能稍后再试试吗？"
-                    db_ops_v2.save_conversation(user_input, error_response)
+                    db_ops.save_conversation(user_input, error_response)
                     return error_response
             
             response.raise_for_status()
@@ -83,7 +83,7 @@ def get_mita_response(user_input, max_retries=2, timeout=15):
             mita_response = result['choices'][0]['message']['content']
             
             # 保存对话到数据库
-            if db_ops_v2.save_conversation(user_input, mita_response):
+            if db_ops.save_conversation(user_input, mita_response):
                 log_info("对话记录保存成功")
             else:
                 log_error("对话记录保存失败")
@@ -97,7 +97,7 @@ def get_mita_response(user_input, max_retries=2, timeout=15):
                 time.sleep(2 ** attempt)  # 指数退避
             else:
                 error_response = "呜…网络好像不太顺畅呢…能再试一次吗？"
-                db_ops_v2.save_conversation(user_input, error_response)
+                db_ops.save_conversation(user_input, error_response)
                 return error_response
                 
         except requests.exceptions.ConnectionError:
@@ -106,7 +106,7 @@ def get_mita_response(user_input, max_retries=2, timeout=15):
                 time.sleep(2 ** attempt)  # 指数退避
             else:
                 error_response = "呜…连接服务器遇到了一些困难…请稍后再试…"
-                db_ops_v2.save_conversation(user_input, error_response)
+                db_ops.save_conversation(user_input, error_response)
                 return error_response
                 
         except KeyError as e:
@@ -115,7 +115,7 @@ def get_mita_response(user_input, max_retries=2, timeout=15):
                 time.sleep(2 ** attempt)
             else:
                 error_response = "呜…服务器返回的信息有些混乱呢…能再告诉我一次吗？"
-                db_ops_v2.save_conversation(user_input, error_response)
+                db_ops.save_conversation(user_input, error_response)
                 return error_response
                 
         except Exception as e:
@@ -124,5 +124,5 @@ def get_mita_response(user_input, max_retries=2, timeout=15):
                 time.sleep(2 ** attempt)
             else:
                 error_response = "呜…好像出了点问题呢…能再试一次吗？"
-                db_ops_v2.save_conversation(user_input, error_response)
+                db_ops.save_conversation(user_input, error_response)
                 return error_response

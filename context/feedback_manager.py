@@ -5,7 +5,7 @@
 import json
 import os
 from datetime import datetime
-from database.db_operations_v2 import db_ops_v2
+from database.db_operations import db_ops
 from utils.logger import log_info, log_debug
 
 

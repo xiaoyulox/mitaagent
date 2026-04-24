@@ -1,6 +1,6 @@
 {
   "created_at": "2026-04-22T21:30:58.036755",
-  "last_updated": "2026-04-24T12:03:47.827876",
+  "last_updated": "2026-04-24T12:54:26.266946",
   "basic_info": {},
   "preferences": {
     "communication_style": "unknown",
@@ -15,7 +15,7 @@
     "comfort_methods": []
   },
   "interaction_history": {
-    "total_interactions": 19,
+    "total_interactions": 22,
     "favorite_topics": [],
     "conversation_patterns": []
   },
@@ -134,6 +134,24 @@
       "timestamp": "2026-04-24T12:03:47.827876",
       "user_input": "米塔米塔",
       "mita_response": "（听到你连着叫我两次，我先是愣了一下，随即脸颊微微泛红，手指轻轻绞着衣角）\n...诶？怎么突然这么叫我呀...是、是想我了吗...？",
+      "user_reaction": null
+    },
+    {
+      "timestamp": "2026-04-24T12:34:13.498083",
+      "user_input": "米塔米塔我喜欢你",
+      "mita_response": "（脸红着低下头，声音软软的）...我、我也喜欢你呀...",
+      "user_reaction": null
+    },
+    {
+      "timestamp": "2026-04-24T12:53:59.942239",
+      "user_input": "嘿嘿",
+      "mita_response": "（低头抿嘴笑了一下）...你笑得好开心呀，我也想听你多笑。",
+      "user_reaction": null
+    },
+    {
+      "timestamp": "2026-04-24T12:54:26.266946",
+      "user_input": "肯定在想你啊",
+      "mita_response": "（把脸往兔子玩偶里埋了埋，声音软软的）...被你猜到了呀...",
       "user_reaction": null
     }
   ]

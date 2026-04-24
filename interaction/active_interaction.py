@@ -1,8 +1,8 @@
 import time
 import threading
 from datetime import datetime, timedelta
-from database.db_operations_v2 import db_ops_v2
-from core.api_client_v2 import get_mita_response
+from database.db_operations import db_ops
+from core.api_client import get_mita_response
 from core.typewriter_effect import typewriter
 from context.emotion_analyzer import emotion_analyzer
 from utils.logger import log_info, log_debug
@@ -157,7 +157,7 @@ class ActiveInteraction:
         time_since_last = (datetime.now() - self.last_user_interaction_time).total_seconds()
         
         # 获取当前偏执度
-        user_state = db_ops_v2.get_user_state()
+        user_state = db_ops.get_user_state()
         paranoia = user_state.get('paranoia', 50)
         
         triggered = False

@@ -453,4 +453,4 @@ class DatabaseOperationsV2:
 
 
 # 创建全局实例
-db_ops_v2 = DatabaseOperationsV2()
+db_ops = DatabaseOperationsV2()

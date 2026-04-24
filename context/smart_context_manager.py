@@ -1,4 +1,4 @@
-from database.db_operations_v2 import db_ops_v2
+from database.db_operations import db_ops
 from config.personality_config import PERSONALITY_MODES, CURRENT_PERSONALITY
 from utils.logger import log_info, log_warning, log_debug
 import re
@@ -47,7 +47,7 @@ class SmartContextManager:
     
     def get_context_history(self):
         """获取历史对话作为上下文，根据时间和重要性过滤"""
-        conversations = db_ops_v2.get_recent_conversations(self.max_context_length)
+        conversations = db_ops.get_recent_conversations(self.max_context_length)
         context_str = ""
         
         if not conversations:
@@ -161,7 +161,7 @@ class SmartContextManager:
     
     def analyze_sentiment_and_update_state(self, user_input):
         """改进的情感分析 - 更细粒度的情感识别和状态更新"""
-        user_state = db_ops_v2.get_user_state()
+        user_state = db_ops.get_user_state()
         affection_change = 0
         paranoia_change = 0
         
@@ -187,7 +187,7 @@ class SmartContextManager:
         
         # 更新用户状态
         if affection_change != 0 or paranoia_change != 0:
-            db_ops_v2.update_affection(affection_change, paranoia_change)
+            db_ops.update_affection(affection_change, paranoia_change)
             log_info(f"情感分析结果 - 好感度变化: {affection_change}, 偏执值变化: {paranoia_change}")
             log_debug(f"详细情感得分: {sentiment_scores}")
     
@@ -225,18 +225,18 @@ class SmartContextManager:
             mode = PERSONALITY_MODES[CURRENT_PERSONALITY]
             if CURRENT_PERSONALITY == 'soft_cute':
                 # 软萌模式：提升好感度，降低偏执值
-                db_ops_v2.update_affection(
+                db_ops.update_affection(
                     affection_change=mode['affection_boost'], 
                     paranoia_change=-mode['paranoia_reduction']
                 )
             elif CURRENT_PERSONALITY == 'yandere':
                 # 病娇模式：降低好感度，大幅提升偏执值
-                db_ops_v2.update_affection(
+                db_ops.update_affection(
                     affection_change=mode['affection_boost'], 
                     paranoia_change=mode['paranoia_increase']
                 )
         
-        state = db_ops_v2.get_user_state()
+        state = db_ops.get_user_state()
         affection = state['affection']
         paranoia = state['paranoia']
         

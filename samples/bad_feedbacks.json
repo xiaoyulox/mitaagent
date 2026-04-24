@@ -6,13 +6,5 @@
     "user_comment": "回复太短了",
     "status": "pending",
     "resolved_at": null
-  },
-  {
-    "id": 2,
-    "timestamp": "2026-04-23T23:08:28.370892",
-    "context": "",
-    "user_comment": "说话太短了",
-    "status": "pending",
-    "resolved_at": null
   }
 ]
